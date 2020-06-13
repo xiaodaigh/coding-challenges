@@ -25,6 +25,8 @@ function p(n, dict = Dict{Tuple{Int, Int}, Int}())
         return 3
     end
 
+    @assert n >= 4
+
     res = 4 # piles = n is counted
             # piles = n-1 is counted
             # piles = n-2 is counted
@@ -49,17 +51,22 @@ function p(n, piles, dict)
 
     if haskey(dict, (n, piles))
         return dict[n, piles]
+    elseif 2piles > n
+        number_of_size_1_piles = 2piles - n
+        res = p(n-number_of_size_1_piles, piles - number_of_size_1_piles, dict)
+    else
+        res = 0
+        max_possible_min_size = div(n, piles)
+
+        for min_size = 1:max_possible_min_size
+            new_n = n - min_size # the first pile is this of size min_size
+            # counting trick to reduce stuff
+            new_n -= (piles - 1)*(min_size - 1)
+            res += p(new_n, piles - 1, dict)
+            res =  mod(res, M)
+        end
     end
 
-    res = 0
-    max_possible_min_size = div(n, piles)
-    for min_size = 1:max_possible_min_size
-        new_n = n - min_size # the first pile is this of size min_size
-        # counting trick to reduce stuff
-        new_n -= (piles - 1)*(min_size - 1)
-        res += p(new_n, piles - 1, dict)
-        res =  mod(res, M)
-    end
     dict[n, piles] = res
     res
 end

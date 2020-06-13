@@ -5,6 +5,11 @@ p(2)
 p(3)
 p(4)
 p(5)
+p(6)
+p(7)
+p(8)
+using BenchmarkTools
+@benchmark p(1000)
 
 @time solve78()
 
