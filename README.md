@@ -1,2 +1,1 @@
-# HackerRank solutions
-My Hacker Rank Solution
+My coding challenge solutions not just for Hacker Rank

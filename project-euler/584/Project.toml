@@ -1,0 +1,6 @@
+[deps]
+CircularArrays = "7a955b69-7140-5f4e-a0ed-f168c5e2e749"
+DataConvenience = "3b531cbf-ee43-4e67-8118-dca2c9372f86"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+ProjectEulerUtil = "f3fda6fd-dc4e-47de-8408-2e5155a8ff39"
+RollingFunctions = "b0e4dd01-7b14-53d8-9b45-175a3e362653"
