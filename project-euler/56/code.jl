@@ -1,0 +1,1 @@
+@time ab = findmax([digits(a^b) |> sum for a in BigInt.(1:99), b in 1:99])[1]
