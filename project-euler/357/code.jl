@@ -1,11 +1,12 @@
 using ProjectEulerUtil
 using Primes
 
-n = 4
+n = 2
 pd = proper_divisors(n)
-pd .+ div.(n, pd)
+okk= pd .+ div.(n, pd)
+t1, t2 = divrem(length(pd)-1, 2)
+okk[2:1+t1+t2]
 
-satisfy357(4)
 
 function satisfy357(n)
     pd = proper_divisors(n)
@@ -17,7 +18,7 @@ function satisfy357(n)
 end
 
 function solve357()
-    prime = nextprime(4)
+    prime = nextprime(3)
     n = prime - 1
 
     res = BigInt(0)
@@ -29,7 +30,7 @@ function solve357()
         prime = nextprime(prime + 1)
         n = prime - 1
     end
-    res
+    res + 1 # is for 1
 end
 
 @time solve357()
