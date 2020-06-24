@@ -1,8 +1,4 @@
-using Memoize
-
-dist = 50
-
-@memoize function solve227()
+function solve227()
     m = Matrix{Rational{BigInt}}(undef, 50, 50)
     m .= 0
     for i in 3:48
@@ -36,9 +32,15 @@ dist = 50
     o .= 1//1
 
     res = m^-1*o
-    res[50]
 end
 
 @time res = solve227()
 
-res |> float
+res[50]
+res[50] |> float
+
+res[1] |> float
+res[2] |> float
+res[3] |> float
+res[4] |> float
+res[5] |> float
