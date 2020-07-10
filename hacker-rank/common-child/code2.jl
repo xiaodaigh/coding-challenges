@@ -1,72 +1,45 @@
-struct CCIndex
-    idx::NTuple{26, Vector{Int}}
+function _commonChild(s1, s2, l1, l2, dict)
+    if (l1 <= 0) || (l2 <= 0)
+        return 0
+    else
+        dl1l2 = dict[l1, l2]
 
-    CCIndex(s) = begin
-        idx = ntuple(_ -> Int[], 26)
-        for (i, c) in enumerate(s)
-            push!(idx[Int(c) - 64], i)
+        if dl1l2 != -1
+            return dict[l1, l2]
         end
-        new(idx)
     end
-end
 
-function Base.findfirst(c::Char, idx::CCIndex, start)
-    idxc = idx[c]
-    l = length(idxc)
-    if l == 0
-        return nothing
-    end
-    res = searchsortedfirst(idxc, start)
-    if res > length(idx[c])
-        return nothing
-    end
-    idxc[res]
-end
-
-Base.getindex(idx::CCIndex, c::Char) = idx.idx[Int(c) - 64]
-
-function commonChild_rec!(dict, s1, s2, p1, p2, idx2)
-    #println("$(s1[p1:end]) $(s2[p2:end])")
-    min_findfirst_pos = typemax(Int)
-
-    max_len = 0
-    # max_len_achieved_at_pos = 0
-    for i in p1:length(s1)
-
-        if (length(s1) - i + 1 < max_len) || (length(s2) - p2 + 1 < max_len)
+    res = 0
+    cl1 = l1
+    cl2 = l2
+    ml12 = min(l1, l2)
+    for i in 1:ml12
+        if s1[l1] != s2[l2]
             break
         end
-        l = get(dict, (i, p2), -2)
-        if l == -2
-            c = s1[i]
-            pos = findfirst(c, idx2, p2)
-            if pos === nothing
-                continue
-            end
-
-            if pos < min_findfirst_pos
-                min_findfirst_pos = pos
-
-                # max_len_achieved_at_pos - pos + 1
-            else
-                continue
-            end
-
-            l = 1 + commonChild_rec!(dict, s1, s2, i + 1, pos + 1, idx2)
-            dict[i, p2] = l
-        end
-        if l > max_len
-            max_len = l
-            # max_len_achieved_at_pos = pos
-        end
+        res += 1
+        l1 -= 1
+        l2 -= 1
     end
 
-    return max_len
+    res += max(
+        _commonChild(s1, s2, l1-1, l2,    dict),
+        _commonChild(s1, s2, l1,   l2 -1, dict)
+    )
+
+    dict[cl1, cl2] = res
+    # if (l1 == length(s1)) && (l2 == length(s2))
+    #     return dict
+    # end
+    res
 end
 
 function commonChild(s1, s2)
-    d = Dict{Tuple{Int, Int}, Int}()
-    cs2 = collect(s2)
-    idx2 = CCIndex(cs2)
-    commonChild_rec!(d, collect(s1), cs2, 1, 1, idx2)
+    c1 = collect(s1) .|> UInt8
+    c2 = collect(s2) .|> UInt8
+    l1 = length(c1)
+    l2 = length(c2)
+    dict = zeros(Int, l1, l2)
+    dict .= -1
+    _commonChild(c1, c2, l1, l2, dict)
 end

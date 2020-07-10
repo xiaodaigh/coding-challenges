@@ -1,0 +1,35 @@
+
+# k^2 - k - nn1_div2 = 0
+
+# k1 + k2 = -1
+
+# (k1 + k2)/2 = -1/2
+
+# k1 = -1//2 + u
+# k2 = -1//2 - u
+
+
+# (-1//2 + u)(-1//2 - u) = -nn1_div2
+# 1//4 - u^2 = -nn1_div2
+
+# sqrt(4nn1_div2 + 1)//2 = u
+
+
+
+# (u-uk1)*(u+uk1) = -nn1_div2
+# u^2 - uk1^2 = -nn1_div2
+
+# rhs = 1 + 2*n*(n-1)
+# sqrt(rhs) is integer
+
+# rhs = 2*n^2 - 2n + 1
+# rhs = n^2 + (n - 1)^2
+# trying to express rhs as (am+b)^2
+# rhs = 2*(m+k)^2 - 2(m+k) + 1; let n = m + k
+# rhs = 2*m^2 + 4mk + 2k^2 - 2m - 2k + 1
+# rhs = 2*m^2 + (4k -2)m + (2k^2 - 2k + 1)
+# rhs = (am+b)^2 = a^2m^2 + 2ab + b^2
+
+
+
+

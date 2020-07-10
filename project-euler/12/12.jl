@@ -15,7 +15,7 @@ abc12() = begin
     end
     if res > 500
       println("final", i)
-      throw("up")
+      error()
     end
   end
 end

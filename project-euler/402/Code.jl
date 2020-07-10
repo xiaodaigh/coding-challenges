@@ -1,13 +1,13 @@
 using StatsBase
 
-sim402() = begin
-   Colors=falses(7) 
-   Colors[1]=true
-   For I in sample(10:79,19,replace=false)
-     Colors[div(I, 10)]=true
-   End
-   Sum(colours) 
-End
+function sim402()
+    colors=falses(7)
+    colors[1]=true
+    for i in sample(10:79,19,replace=false)
+        colors[div(i, 10)]=true
+    end
+    sum(colors)
+end
 
 
 
